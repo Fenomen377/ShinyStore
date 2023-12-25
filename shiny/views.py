@@ -12,3 +12,7 @@ def index(request):
         'categories': categories,
         'items': items,
     })
+
+
+def login_view(request):
+    return render(request, 'shiny/login.html')
