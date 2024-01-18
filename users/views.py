@@ -1,4 +1,10 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.contrib import auth, messages
+import shiny.views
 
 from users.forms import SignupForm, LoginForm
 
@@ -8,9 +14,7 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-def logout(request):
-    context = {'title': 'Home - Выход'}
-    return render(request, '', context)
+
 
 
 def registration(request):
@@ -31,15 +35,28 @@ def registration(request):
 
 def login(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = LoginForm(data=request.POST)
 
         if form.is_valid():
-            form.save()
+            username = request.POST['username']
+            password = request.POST['password']
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                return HttpResponseRedirect(reverse('shiny:index'))
 
-            return redirect('/')
     else:
         form = LoginForm()
 
-    return render(request, 'users/login.html', {
+    context = {
+        'title': 'Home - Авторизация',
         'form': form
-    })
+    }
+
+    return render(request, 'users/login.html', context)
+
+
+@login_required
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('users:login'))

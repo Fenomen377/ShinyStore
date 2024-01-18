@@ -1,6 +1,5 @@
 from django.urls import path
 
-import shiny.views
 from users import views
 
 app_name = 'users'
