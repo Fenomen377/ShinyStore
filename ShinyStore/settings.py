@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shiny',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = reverse_lazy("shiny:login")
+
+AUTH_USER_MODEL = 'users.User'

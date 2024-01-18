@@ -7,5 +7,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shiny.urls')),
+    path('', include('users.urls')),
+    path('user/', include('users.urls', namespace='user')),
     path('accounts', include("django.contrib.auth.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
