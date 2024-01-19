@@ -14,9 +14,6 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-
-
-
 def registration(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
