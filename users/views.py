@@ -5,8 +5,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import auth, messages
 import shiny.views
+from django.contrib.auth import get_user_model
 
 from users.forms import SignupForm, LoginForm
+
+
+User = get_user_model()
 
 
 def profile(request):
