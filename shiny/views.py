@@ -1,7 +1,8 @@
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from shiny.models import Category, Item
+from items.models import Category, Item
 
 
 def index(request):
@@ -14,5 +15,4 @@ def index(request):
     })
 
 
-def login_view(request):
-    return render(request, 'shiny/login.html')
+
