@@ -7,14 +7,24 @@ from django.contrib import auth, messages
 import shiny.views
 from django.contrib.auth import get_user_model
 
-from users.forms import SignupForm, LoginForm
-
+from users.forms import SignupForm, LoginForm, ProfileForm
 
 User = get_user_model()
 
 
 def profile(request):
-    context = {'title': 'Home - Профиль'}
+    if request.method == 'POST':
+        form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('user:profile'))
+    else:
+        form = ProfileForm(instance=request.user)
+
+    context={
+        'title': 'Home - Кабинет',
+        'form': form
+    }
     return render(request, 'users/profile.html', context)
 
 
