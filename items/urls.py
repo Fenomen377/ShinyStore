@@ -1,11 +1,12 @@
 from django.urls import path
 
-from items import views
-from items.views import detail
+from .views import detail, search
 
 app_name = 'items'
 
 urlpatterns = [
-    path('item/<int:item_id>/', detail, name='detail')
+    path('search/', search, name='search'),
+    path('item/<int:item_id>/', detail, name='detail'),
+
 
 ]

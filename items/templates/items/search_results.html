@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Результаты поиска</h1>
+    {% if query %}
+        <p>Результаты по запросу "{{ query }}":</p>
+    {% endif %}
+    <div class="row">
+        {% for item in page_object %}
+            <div class="col-sm-6 col-md-4">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="{{ item.image.url }}" alt="{{ product.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="card-text">{{ item.price }} ₽</p>
+                        <a href="{% url 'items:detail' item.id %}" class="btn btn-outline-success font-semibold text-lg text-white bg-teal-500 rounded-xl px-3 py-1">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>По вашему запросу ничего не найдено.</p>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_object.has_previous %}
+                <a href="?page=1">&laquo; первая</a>
+                <a href="?page={{ page_object.previous_page_number }}">&lsaquo; предыдущая</a>
+            {% endif %}
+
+            <span class="current-page">
+                Страница {{ page_object.number }} из {{ page_object.paginator.num_pages }}.
+            </span>
+
+            {% if page_object.has_next %}
+                <a href="?page={{ page_object.next_page_number }}">следующая &rsaquo;</a>
+                <a href="?page={{ page_object.paginator.num_pages }}">последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

@@ -15,8 +15,8 @@
             <a href="/" class="text-xl font-semibold">ShinyStore<br><small>магазин обуви</small></a>
 
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2 px-6 py-3 bg-gray-300 rounded-xl" type="search" placeholder="Search" aria-label="Search">
+            <form method="get" action="{% url 'items:search' %}" class="d-flex" role="search">
+                <input name="q" class="form-control me-2 px-6 py-3 bg-gray-300 rounded-xl" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success font-semibold text-lg text-white bg-teal-500 rounded-xl px-6 py-3" type="submit"> Поиск</button>
             </form>
             <div class="space-x-6">
