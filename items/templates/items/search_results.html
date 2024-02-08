@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Результаты поиска</h1>
-    {% if query %}
-        <p>Результаты по запросу "{{ query }}":</p>
-    {% endif %}
-    <div class="row">
+    <h1 class="text-2xl">Результаты поиска по запросу "{{ query }}"</h1>
+    <div class="grid grid-cols-3 gap-3">
         {% for item in page_object %}
-            <div class="col-sm-6 col-md-4">
-                <div class="card mb-3">
-                    <img class="card-img-top" src="{{ item.image.url }}" alt="{{ product.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.description }}</p>
-                        <p class="card-text">{{ item.price }} ₽</p>
-                        <a href="{% url 'items:detail' item.id %}" class="btn btn-outline-success font-semibold text-lg text-white bg-teal-500 rounded-xl px-3 py-1">Подробнее</a>
-                    </div>
+            <div>
+                    <a href="{% url 'items:detail' item.id %}">
+                        <div>
+                            <img src="{{ item.image.url }}" class="rounded-t-xl">
+                        </div>
+
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ item.name }}</h2>
+                            <p class="text-gray-500">Цена: {{ item.price }} ₽</p>
+                        </div>
+                    </a>
                 </div>
-            </div>
         {% empty %}
             <p>По вашему запросу ничего не найдено.</p>
         {% endfor %}
